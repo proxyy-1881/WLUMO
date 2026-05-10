@@ -65,12 +65,12 @@ function updateCartCount() {
 
 function showNotification(message) {
     let notification = document.querySelector('.notification');
-    
+
     if (!notification) {
         notification = document.createElement('div');
         notification.className = 'notification';
         document.body.appendChild(notification);
-        
+
         const style = document.createElement('style');
         style.textContent = `
             .notification {
@@ -101,10 +101,10 @@ function showNotification(message) {
         `;
         document.head.appendChild(style);
     }
-    
+
     notification.textContent = message;
     notification.classList.add('show');
-    
+
     setTimeout(() => {
         notification.classList.remove('show');
     }, 2000);
@@ -113,9 +113,9 @@ function showNotification(message) {
 function addToCart(productId) {
     const product = products.find(p => p.id === productId);
     if (!product) return;
-    
+
     const existingItem = cart.find(item => item.id === productId);
-    
+
     if (existingItem) {
         existingItem.quantity++;
         animateCartButton(productId, 'added');
@@ -128,7 +128,7 @@ function addToCart(productId) {
         });
         animateCartButton(productId, 'added');
     }
-    
+
     saveCart();
     updateCartCount();
     showNotification(`${product.name} добавлен в корзину!`);
@@ -196,7 +196,7 @@ function addRippleEffect(element, event) {
     const rect = element.getBoundingClientRect();
     const size = Math.max(rect.width, rect.height);
     let x, y;
-    
+
     if (event.touches) {
         x = event.touches[0].clientX - rect.left - size / 2;
         y = event.touches[0].clientY - rect.top - size / 2;
@@ -204,7 +204,7 @@ function addRippleEffect(element, event) {
         x = event.clientX - rect.left - size / 2;
         y = event.clientY - rect.top - size / 2;
     }
-    
+
     ripple.style.width = ripple.style.height = `${size}px`;
     ripple.style.left = `${x}px`;
     ripple.style.top = `${y}px`;
@@ -214,11 +214,11 @@ function addRippleEffect(element, event) {
     ripple.style.transform = 'scale(0)';
     ripple.style.animation = 'ripple 0.6s linear';
     ripple.style.pointerEvents = 'none';
-    
+
     element.style.position = 'relative';
     element.style.overflow = 'hidden';
     element.appendChild(ripple);
-    
+
     setTimeout(() => {
         ripple.remove();
     }, 600);
@@ -227,14 +227,14 @@ function addRippleEffect(element, event) {
 function openProductModal(productId) {
     const product = products.find(p => p.id === productId);
     if (!product) return;
-    
+
     let modal = document.querySelector('.product-modal');
-    
+
     if (!modal) {
         modal = document.createElement('div');
         modal.className = 'product-modal';
         document.body.appendChild(modal);
-        
+
         const style = document.createElement('style');
         style.textContent = `
             .product-modal {
@@ -357,7 +357,7 @@ function openProductModal(productId) {
         `;
         document.head.appendChild(style);
     }
-    
+
     modal.innerHTML = `
         <div class="product-modal-content">
             <button class="modal-close">&times;</button>
@@ -371,21 +371,21 @@ function openProductModal(productId) {
             <button class="modal-add-btn" data-id="${product.id}">Добавить в корзину</button>
         </div>
     `;
-    
+
     modal.classList.add('open');
-    
+
     const closeBtn = modal.querySelector('.modal-close');
     closeBtn.addEventListener('click', () => {
         modal.classList.remove('open');
     });
-    
+
     const addBtn = modal.querySelector('.modal-add-btn');
     addBtn.addEventListener('click', (e) => {
         const id = parseInt(addBtn.dataset.id);
         addToCart(id);
         modal.classList.remove('open');
     });
-    
+
     modal.addEventListener('click', (e) => {
         if (e.target === modal) {
             modal.classList.remove('open');
@@ -395,12 +395,12 @@ function openProductModal(productId) {
 
 function renderCartModal() {
     let modal = document.querySelector('.cart-modal');
-    
+
     if (!modal) {
         modal = document.createElement('div');
         modal.className = 'cart-modal';
         document.body.appendChild(modal);
-        
+
         const style = document.createElement('style');
         style.textContent = `
             .cart-modal {
@@ -555,8 +555,8 @@ function renderCartModal() {
         `;
         document.head.appendChild(style);
     }
-    
-    const cartItemsHtml = cart.length === 0 
+
+    const cartItemsHtml = cart.length === 0
         ? '<div class="empty-cart">Корзина пуста</div>'
         : cart.map(item => `
             <div class="cart-item">
@@ -572,7 +572,7 @@ function renderCartModal() {
                 <div class="cart-item-total">${item.price * item.quantity} ₽</div>
             </div>
         `).join('');
-    
+
     modal.innerHTML = `
         <div class="cart-header">
             <h3>Корзина</h3>
@@ -609,7 +609,7 @@ function checkout() {
         showNotification('Корзина пуста!');
         return;
     }
-    
+
     const total = getTotalPrice();
     showNotification(`Заказ оформлен на сумму ${total} ₽. Спасибо за покупку!`);
     cart = [];
@@ -622,7 +622,7 @@ function checkout() {
 function renderProducts() {
     const galleryContainer = document.createElement('div');
     galleryContainer.className = 'products-gallery';
-    
+
     const productsHtml = products.map((product, index) => `
         <div class="product-card" data-index="${index}" data-id="${product.id}">
             <div class="product-image">
@@ -641,16 +641,16 @@ function renderProducts() {
             </div>
         </div>
     `).join('');
-    
+
     galleryContainer.innerHTML = productsHtml;
-    
+
     const promoSection = document.querySelector('.promo-section');
     if (promoSection) {
         promoSection.insertAdjacentElement('afterend', galleryContainer);
     } else {
         document.body.appendChild(galleryContainer);
     }
-    
+
     const style = document.createElement('style');
     style.textContent = `
         .products-gallery {
@@ -973,11 +973,11 @@ function renderProducts() {
         }
     `;
     document.head.appendChild(style);
-    
+
     const cards = document.querySelectorAll('.product-card');
     cards.forEach((card, index) => {
         animateCardOnLoad(card);
-        
+
         card.addEventListener('click', (e) => {
             if (!e.target.classList.contains('add-to-cart-btn')) {
                 const id = parseInt(card.dataset.id);
@@ -985,7 +985,7 @@ function renderProducts() {
             }
         });
     });
-    
+
     document.querySelectorAll('.add-to-cart-btn').forEach(btn => {
         btn.addEventListener('click', (e) => {
             e.stopPropagation();
@@ -993,7 +993,7 @@ function renderProducts() {
             addRippleEffect(btn, e);
             addToCart(id);
         });
-        
+
         btn.addEventListener('touchstart', (e) => {
             e.stopPropagation();
             const id = parseInt(btn.dataset.id);
@@ -1005,12 +1005,12 @@ function renderProducts() {
 
 function addCursorGlow() {
     const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-    
+
     if (!isTouchDevice) {
         const glow = document.createElement('div');
         glow.className = 'cursor-glow';
         document.body.appendChild(glow);
-        
+
         const style = document.createElement('style');
         style.textContent = `
             .cursor-glow {
@@ -1028,17 +1028,17 @@ function addCursorGlow() {
             }
         `;
         document.head.appendChild(style);
-        
+
         document.addEventListener('mousemove', (e) => {
             glow.style.left = (e.clientX - 300) + 'px';
             glow.style.top = (e.clientY - 300) + 'px';
             glow.style.opacity = '1';
         });
-        
+
         document.addEventListener('mouseleave', () => {
             glow.style.opacity = '0';
         });
-        
+
         document.addEventListener('mouseenter', () => {
             glow.style.opacity = '1';
         });
@@ -1063,21 +1063,21 @@ function createCartIcon() {
         box-shadow: 0 4px 15px rgba(0,0,0,0.3);
         transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     `;
-    
+
     const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-    
+
     if (!isTouchDevice) {
         cartIcon.addEventListener('mouseenter', () => {
             cartIcon.style.transform = 'scale(1.1)';
             cartIcon.style.boxShadow = '0 8px 25px rgba(234,0,255,0.5)';
         });
-        
+
         cartIcon.addEventListener('mouseleave', () => {
             cartIcon.style.transform = 'scale(1)';
             cartIcon.style.boxShadow = '0 4px 15px rgba(0,0,0,0.3)';
         });
     }
-    
+
     cartIcon.addEventListener('click', () => {
         cartIcon.style.transform = 'scale(0.95)';
         setTimeout(() => {
@@ -1085,7 +1085,7 @@ function createCartIcon() {
         }, 150);
         openCart();
     });
-    
+
     cartIcon.addEventListener('touchstart', () => {
         cartIcon.style.transform = 'scale(0.95)';
         setTimeout(() => {
@@ -1093,14 +1093,14 @@ function createCartIcon() {
         }, 150);
         openCart();
     });
-    
+
     document.body.appendChild(cartIcon);
 }
 
 document.addEventListener('click', (e) => {
     const modal = document.querySelector('.cart-modal');
     const cartIcon = document.querySelector('.cart-icon');
-    
+
     if (modal && modal.classList.contains('open')) {
         if (!modal.contains(e.target) && !cartIcon?.contains(e.target)) {
             closeCart();
@@ -1111,37 +1111,56 @@ document.addEventListener('click', (e) => {
 function initBurgerMenu() {
     const burgerIcon = document.getElementById('burgerIcon');
     const mobileNav = document.getElementById('mobileNav');
-    
+
     if (!burgerIcon || !mobileNav) {
         console.log('Элементы бургер меню не найдены');
         return;
     }
-    
+
     let overlay = document.querySelector('.overlay');
     if (!overlay) {
         overlay = document.createElement('div');
         overlay.className = 'overlay';
         document.body.appendChild(overlay);
     }
-    
+
     function toggleMenu() {
         burgerIcon.classList.toggle('active');
         mobileNav.classList.toggle('active');
         overlay.classList.toggle('active');
-        
+
         if (mobileNav.classList.contains('active')) {
             document.body.style.overflow = 'hidden';
         } else {
             document.body.style.overflow = '';
         }
     }
-    
+
     burgerIcon.addEventListener('click', toggleMenu);
     overlay.addEventListener('click', toggleMenu);
-    
+
     const links = mobileNav.querySelectorAll('a');
     links.forEach(link => {
         link.addEventListener('click', toggleMenu);
+    });
+}
+
+// Функция для отслеживания изменения размера экрана (переключение режимов в браузере)
+function handleResize() {
+    let resizeTimer;
+    window.addEventListener('resize', function () {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(function () {
+            // Принудительная перерисовка галереи при смене режима
+            const gallery = document.querySelector('.products-gallery');
+            if (gallery) {
+                gallery.style.display = 'grid';
+                gallery.style.opacity = '0.99';
+                setTimeout(() => {
+                    gallery.style.opacity = '1';
+                }, 10);
+            }
+        }, 150);
     });
 }
 
@@ -1151,8 +1170,9 @@ function initShop() {
     updateCartCount();
     addCursorGlow();
     initBurgerMenu();
+    handleResize(); // Добавляем отслеживание изменения размера
 }
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     initShop();
 });
