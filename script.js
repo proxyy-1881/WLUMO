@@ -4,7 +4,7 @@ const products = [
         name: "работа WLUMO",
         price: 2490,
         category: "искуство",
-        description: "Качественная картина",
+        description: "характеристика картины",
         fullDescription: "картина"
     },
     {
@@ -12,7 +12,7 @@ const products = [
         name: "работа WLUMO",
         price: 4990,
         category: "искуство",
-        description: "Качественная картина",
+        description: "характеристики картины",
         fullDescription: "картина"
     },
     {
@@ -20,7 +20,7 @@ const products = [
         name: "работа WLUMO",
         price: 1490,
         category: "искуство",
-        description: "Качественная картина",
+        description: "характеристики картины",
         fullDescription: "картина"
     },
     {
@@ -28,7 +28,7 @@ const products = [
         name: "работа WLUMO",
         price: 990,
         category: "искуство",
-        description: "Качественная картина",
+        description: "характеристики картины",
         fullDescription: "картина"
     },
     {
@@ -36,7 +36,7 @@ const products = [
         name: "работа WLUMO",
         price: 2990,
         category: "искуство",
-        description: "Качественная картина",
+        description: "характеристики картины",
         fullDescription: "картина"
     },
     {
@@ -44,7 +44,7 @@ const products = [
         name: "работа WLUMO",
         price: 490,
         category: "искуство",
-        description: "Качественная картина",
+        description: "характеристики картины",
         fullDescription: "картина"
     }
 ];
