@@ -1,0 +1,17 @@
+.about-section {
+    border-radius: 16px;
+    padding: 12px 15px !important;
+    margin-bottom: 8px !important;
+    width: 100%;
+}
+
+.about-text {
+    font-size: 13px !important;
+    line-height: 1.4 !important;
+}
+
+@media (max-width: 768px) {
+    .about-text {
+        font-size: 12px !important;
+    }
+}

@@ -1,0 +1,48 @@
+/* Глобальные отступы от краев экрана - 30px */
+body {
+    padding: 30px !important;
+}
+
+/* Все блоки занимают всю ширину с отступом 30px */
+.hero-section,
+.products-section,
+.products-gallery,
+.main-footer {
+    width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    margin-bottom: 20px !important;
+}
+
+/* Отступы для бургер меню */
+.burger-menu {
+    left: 30px !important;
+    top: 30px !important;
+}
+
+/* Отступы для иконки корзины */
+.cart-icon {
+    right: 30px !important;
+    top: 30px !important;
+}
+
+/* На всех размерах экрана отступ 30px */
+@media (max-width: 768px) {
+    body {
+        padding: 30px !important;
+    }
+    .burger-menu {
+        left: 30px !important;
+        top: 30px !important;
+    }
+    .cart-icon {
+        right: 30px !important;
+        top: 30px !important;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        padding: 30px !important;
+    }
+}
